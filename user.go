@@ -3,11 +3,11 @@ package sleeper
 import "fmt"
 
 type UserSimpleJSON struct {
-	Username    string `json:"username"`
-	UserID      string `json:"user_id"`
-	DisplayName string `json:"display_name"`
-	Avatar      string `json:"avatar"`
-	Email       string `json:"email,omitempty"`
+	Username    string  `json:"username"`
+	UserID      *string `json:"user_id"`
+	DisplayName string  `json:"display_name"`
+	Avatar      string  `json:"avatar"`
+	Email       string  `json:"email,omitempty"`
 }
 
 // UsersJSON is the return type for all users in a league
@@ -91,6 +91,10 @@ func (c *Client) GetUser(usernameOrID string) (UserSimpleJSON, error) {
 
 	if err != nil {
 		return *user, err
+	}
+
+	if user.UserID == nil {
+		return *user, c.decodeError(404)
 	}
 
 	return *user, nil

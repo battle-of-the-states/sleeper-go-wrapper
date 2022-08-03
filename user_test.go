@@ -22,7 +22,7 @@ func TestGetUser(t *testing.T) {
 		expected string
 	}{
 		{res.Username, "kylewithanr"},
-		{res.UserID, "446778421305929728"},
+		{*res.UserID, "446778421305929728"},
 		{res.DisplayName, "KyleWithAnR"},
 	}
 

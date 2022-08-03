@@ -61,8 +61,8 @@ func (e Error) Error() string {
 
 // decodeError decodes an Error from response status code based off
 // the docs in sleeper.app -> https://docs.sleeper.app/#errors
-func (c *Client) decodeError(resp *http.Response) error {
-	e := Error{Err: resp.StatusCode}
+func (c *Client) decodeError(statusCode int) error {
+	e := Error{Err: statusCode}
 
 	switch e.Err {
 	case 400:
@@ -77,7 +77,7 @@ func (c *Client) decodeError(resp *http.Response) error {
 		e.Message = "Service Unavailable -- We're temporarily offline for maintenance. Please try again later."
 	default:
 		e.Message = fmt.Sprintf("lastfm: unexpected HTTP %d: %s (empty error)",
-			resp.StatusCode, http.StatusText(resp.StatusCode))
+			statusCode, http.StatusText(statusCode))
 	}
 
 	return e
@@ -106,7 +106,7 @@ func (c *Client) get(url string, result interface{}) error {
 			return nil
 		}
 		if resp.StatusCode != http.StatusOK {
-			return c.decodeError(resp)
+			return c.decodeError(resp.StatusCode)
 		}
 
 		err = json.NewDecoder(resp.Body).Decode(result)
