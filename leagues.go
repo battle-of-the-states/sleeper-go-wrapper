@@ -123,7 +123,7 @@ type MatchupJSON struct {
 	Starters       []string           `json:"starters"`
 	RosterID       int                `json:"roster_id"`
 	Points         float32            `json:"points"`
-	PlayerPoints   map[string]float32 `json:"player_points"`
+	PlayerPoints   map[string]float32 `json:"players_points"`
 	Players        []string           `json:"players"`
 	MatchupID      int                `json:"matchup_id"`
 	CustomPoints   float32            `json:"custom_points"`

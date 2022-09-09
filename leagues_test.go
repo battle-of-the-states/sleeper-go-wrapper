@@ -145,4 +145,18 @@ func TestGetLeagueMatchups(t *testing.T) {
 			t.Errorf("Test Failed: %d expected, received: %d", test.expected, test.test)
 		}
 	}
+
+	var testPlayerPoints = []struct {
+		test     float32
+		expected float32
+	}{
+		{res[0].PlayerPoints["391"], 14},
+		{res[0].PlayerPoints["3161"], 17.92},
+	}
+
+	for _, test := range testPlayerPoints {
+		if test.test != test.expected {
+			t.Errorf("Test Failed: %f expected, received: %f", test.expected, test.test)
+		}
+	}
 }
