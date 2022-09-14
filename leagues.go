@@ -129,6 +129,26 @@ type MatchupJSON struct {
 	CustomPoints   float32            `json:"custom_points"`
 }
 
+// PlayoffBracketJSON is the playoff bracket for a league
+type PlayoffBracketJSON []PlayoffRoundJSON
+
+type PlayoffRoundJSON struct {
+	Round       int `json:"r"`
+	Matchup     int `json:"m"`
+	TeamOne     int `json:"t1"`
+	TeamTwo     int `json:"t2"`
+	Winner      int `json:"w"`
+	Loser       int `json:"l"`
+	TeamOneFrom struct {
+		Winner *int `json:"w,omitempty"`
+		Loser  *int `json:"l,omitempty"`
+	} `json:"t1_from,omitempty"`
+	TeamTwoFrom struct {
+		Winner *int `json:"w,omitempty"`
+		Loser  *int `json:"l,omitempty"`
+	} `json:"t2_from,omitempty"`
+}
+
 /*
 This endpoint retrieves all leagues for a user.
 
@@ -233,4 +253,25 @@ func (c *Client) GetLeagueMatchups(leagueID string, week int8) (MatchupsJSON, er
 	}
 
 	return *matchups, nil
+}
+
+/*
+This endpoint retrieves all users in a league.
+
+leagueID (required) : The ID of the league to retrieve
+week 	 (required) : The week number to get the matchups
+*/
+func (c *Client) GetLeaguePlayoffBracket(leagueID string, bracket Bracket) (PlayoffBracketJSON, error) {
+	// https://api.sleeper.app/v1/league/<league_id>/<bracket_type>
+	lastfmURL := fmt.Sprintf("%s/league/%s/%s", c.sleeperURL, leagueID, bracket)
+
+	playoffBracket := new(PlayoffBracketJSON)
+
+	err := c.get(lastfmURL, playoffBracket)
+
+	if err != nil {
+		return *playoffBracket, err
+	}
+
+	return *playoffBracket, nil
 }
