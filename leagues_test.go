@@ -160,3 +160,31 @@ func TestGetLeagueMatchups(t *testing.T) {
 		}
 	}
 }
+
+func TestGetLeaguePlayoffBracket(t *testing.T) {
+	client, err = NewClient(&hClient)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	res, err := client.GetLeaguePlayoffBracket("732292628472778752", WinnersBracket)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	var tests = []struct {
+		test     int
+		expected int
+	}{
+		{res[0].Winner, 11},
+		{res[0].Round, 1},
+	}
+
+	for _, test := range tests {
+		if test.test != test.expected {
+			t.Errorf("Test Failed: %d expected, received: %d", test.expected, test.test)
+		}
+	}
+}

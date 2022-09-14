@@ -36,6 +36,9 @@ func NewClient(httpClient *http.Client) (*Client, error) {
 // Sport ensures users give valid options for sports
 type Sport string
 
+// Bracket ensures users give valid options for the playoff brackets
+type Bracket string
+
 // TODO: Not sure what all sports are allowed
 const (
 	// NFL is the nfl sport tag
@@ -44,6 +47,10 @@ const (
 	NBA Sport = "nba"
 	// LCS is the lcs sport tag
 	LCS Sport = "lcs"
+	// WinnersBracket is the winners bracket
+	WinnersBracket Bracket = "winners_bracket"
+	// LosersBracket is the losers bracket
+	LosersBracket Bracket = "losers_bracket"
 )
 
 // Error represents an error returned by the sleeper.app Web API.
