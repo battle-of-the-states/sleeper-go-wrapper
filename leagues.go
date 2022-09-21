@@ -286,17 +286,17 @@ func (c *Client) GetLeaguePlayoffBracket(leagueID string, bracket Bracket) (Play
 	Methods for leagues structs
 */
 
-// GetTotalFpts will combine fpts and fpts_decimal for a total fpts
+// GetTotalFpts combines fpts and fpts_decimal for a total fpts
 func (r RosterJSON) GetTotalFpts() float32 {
 	return float32(r.Settings.Fpts) + float32(r.Settings.FptsDecimal)/100
 }
 
-// GetTotalPpts will combine ppts and ppts_decimal for a total ppts
+// GetTotalPpts combines ppts and ppts_decimal for a total ppts
 func (r RosterJSON) GetTotalPpts() float32 {
 	return float32(r.Settings.Ppts) + float32(r.Settings.PptsDecimal)/100
 }
 
-// GetTotalFptsAgainst will combine fpts_against and fpts_against_decimal for a total fpts_against
+// GetTotalFptsAgainst combines fpts_against and fpts_against_decimal for a total fpts_against
 func (r RosterJSON) GetTotalFptsAgainst() float32 {
 	return float32(r.Settings.FptsAgainst) + float32(r.Settings.FptsAgainstDecimal)/100
 }
@@ -307,4 +307,9 @@ func (r RosterJSON) GetManagerEfficiency() float32 {
 	totalPpts := r.GetTotalPpts()
 
 	return (totalFpts / totalPpts) * 100
+}
+
+// GetTotalFptsPerWeek will average the total points with the total weeks played for points / week
+func (r RosterJSON) GetTotalFptsPerWeek() float32 {
+	return r.GetTotalFpts() / float32(r.Settings.Wins+r.Settings.Losses)
 }
