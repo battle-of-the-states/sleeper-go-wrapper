@@ -88,6 +88,45 @@ func TestGetLeagueRosters(t *testing.T) {
 			t.Errorf("Test Failed: %s expected, received: %s", test.expected, test.test)
 		}
 	}
+
+	var settingsTest = []struct {
+		test     int
+		expected int
+	}{
+		{res[0].Settings.Wins, 5},
+		{res[0].Settings.WaiverPosition, 4},
+		{res[0].Settings.WaiverBudgetUsed, 3},
+		{res[0].Settings.TotalMoves, 0},
+		{res[0].Settings.PptsDecimal, 18},
+		{res[0].Settings.Ppts, 1864},
+		{res[0].Settings.Losses, 9},
+		{res[0].Settings.FptsDecimal, 10},
+		{res[0].Settings.FptsAgainstDecimal, 64},
+		{res[0].Settings.FptsAgainst, 1575},
+		{res[0].Settings.Fpts, 1513},
+	}
+
+	for _, test := range settingsTest {
+		if test.test != test.expected {
+			t.Errorf("Test Failed: %d expected, received: %d", test.expected, test.test)
+		}
+	}
+
+	var settingsMethodTest = []struct {
+		test     float32
+		expected float32
+	}{
+		{res[0].GetTotalFpts(), 1513.10},
+		{res[0].GetTotalFptsAgainst(), 1575.64},
+		{res[0].GetTotalPpts(), 1864.18},
+		{res[0].GetManagerEfficiency(), 81.167046},
+	}
+
+	for _, test := range settingsMethodTest {
+		if test.test != test.expected {
+			t.Errorf("Test Failed: %f expected, received: %f", test.expected, test.test)
+		}
+	}
 }
 
 func TestGetLeagueUsers(t *testing.T) {
