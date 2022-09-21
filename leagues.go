@@ -94,13 +94,19 @@ type RosterJSON struct {
 	Taxi     []string `json:"taxi"`
 	Starters []string `json:"starters"`
 	Settings struct {
-		Wins             int `json:"wins"`
-		WaiverPosition   int `json:"waiver_position"`
-		WaiverBudgetUsed int `json:"waiver_budget_used"`
-		TotalMoves       int `json:"total_moves"`
-		Ties             int `json:"ties"`
-		Losses           int `json:"losses"`
-		Fpts             int `json:"fpts"`
+		Wins               int `json:"wins"`
+		WaiverPosition     int `json:"waiver_position"`
+		WaiverBudgetUsed   int `json:"waiver_budget_used"`
+		TotalMoves         int `json:"total_moves"`
+		Ties               int `json:"ties"`
+		PptsDecimal        int `json:"ppts_decimal"`
+		Ppts               int `json:"ppts"`
+		Losses             int `json:"losses"`
+		FptsDecimal        int `json:"fpts_decimal"`
+		FptsAgainstDecimal int `json:"fpts_against_decimal"`
+		FptsAgainst        int `json:"fpts_against"`
+		Fpts               int `json:"fpts"`
+		Division           int `json:"division,omitempty"`
 	} `json:"settings"`
 	RosterID  int         `json:"roster_id"`
 	Reserve   []string    `json:"reserve"`
@@ -274,4 +280,31 @@ func (c *Client) GetLeaguePlayoffBracket(leagueID string, bracket Bracket) (Play
 	}
 
 	return *playoffBracket, nil
+}
+
+/*
+	Methods for leagues structs
+*/
+
+// GetTotalFpts will combine fpts and fpts_decimal for a total fpts
+func (r RosterJSON) GetTotalFpts() float32 {
+	return float32(r.Settings.Fpts) + float32(r.Settings.FptsDecimal)/100
+}
+
+// GetTotalPpts will combine ppts and ppts_decimal for a total ppts
+func (r RosterJSON) GetTotalPpts() float32 {
+	return float32(r.Settings.Ppts) + float32(r.Settings.PptsDecimal)/100
+}
+
+// GetTotalFptsAgainst will combine fpts_against and fpts_against_decimal for a total fpts_against
+func (r RosterJSON) GetTotalFptsAgainst() float32 {
+	return float32(r.Settings.FptsAgainst) + float32(r.Settings.FptsAgainstDecimal)/100
+}
+
+// GetManagerEfficiency will get the percentage of fpts the manager capitalized on vs what was possible
+func (r RosterJSON) GetManagerEfficiency() float32 {
+	totalFpts := r.GetTotalFpts()
+	totalPpts := r.GetTotalPpts()
+
+	return (totalFpts / totalPpts) * 100
 }
