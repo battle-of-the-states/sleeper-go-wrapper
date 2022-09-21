@@ -120,6 +120,7 @@ func TestGetLeagueRosters(t *testing.T) {
 		{res[0].GetTotalFptsAgainst(), 1575.64},
 		{res[0].GetTotalPpts(), 1864.18},
 		{res[0].GetManagerEfficiency(), 81.167046},
+		{res[0].GetTotalFptsPerWeek(), 108.078568},
 	}
 
 	for _, test := range settingsMethodTest {
