@@ -305,11 +305,20 @@ func (r RosterJSON) GetTotalFptsAgainst() float32 {
 func (r RosterJSON) GetManagerEfficiency() float32 {
 	totalFpts := r.GetTotalFpts()
 	totalPpts := r.GetTotalPpts()
+	// Avoid division by 0
+	if totalPpts == 0 {
+		return 0
+	}
 
 	return (totalFpts / totalPpts) * 100
 }
 
 // GetTotalFptsPerWeek will average the total points with the total weeks played for points / week
 func (r RosterJSON) GetTotalFptsPerWeek() float32 {
-	return r.GetTotalFpts() / float32(r.Settings.Wins+r.Settings.Losses)
+	games := float32(r.Settings.Wins + r.Settings.Losses)
+	// Avoid division by 0
+	if games == 0 {
+		return 0
+	}
+	return r.GetTotalFpts() / games
 }
