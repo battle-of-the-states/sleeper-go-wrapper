@@ -20,11 +20,11 @@ sport   (required) : nfl, nba, lcs, etc...
 */
 func (c *Client) GetCurrentState(sport Sport) (State, error) {
 	// https://api.sleeper.app/v1/state/nfl
-	lastfmURL := fmt.Sprintf("%s/state/%s", c.sleeperURL, sport)
+	reqURL := fmt.Sprintf("%s/state/%s", c.sleeperURL, sport)
 
 	state := new(State)
 
-	err := c.get(lastfmURL, state)
+	err := c.get(reqURL, state)
 
 	if err != nil {
 		return *state, err

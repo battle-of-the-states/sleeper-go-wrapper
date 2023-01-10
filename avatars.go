@@ -4,10 +4,10 @@ package sleeper
 
 // func (c *Client) GetAvatar(avatarID string) (string, error) {
 // 	// https://sleepercdn.com/avatars/<avatar_id>
-// 	lastfmURL := fmt.Sprintf("%s/avatars/%s", c.sleeperCDN, avatarID)
-// 	fmt.Println(lastfmURL)
+// 	reqURL := fmt.Sprintf("%s/avatars/%s", c.sleeperCDN, avatarID)
+// 	fmt.Println(reqURL)
 
-// 	resp, err := c.httpClient.Get(lastfmURL)
+// 	resp, err := c.httpClient.Get(reqURL)
 
 // 	if err != nil {
 // 		return "", err

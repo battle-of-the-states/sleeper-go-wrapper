@@ -164,11 +164,11 @@ season	(required) : Season can be 2017, 2018, etc...
 */
 func (c *Client) GetLeaguesForUser(sport Sport, userID, season string) (LeaguesInfoJSON, error) {
 	// https://api.sleeper.app/v1/user/<user_id>/leagues/<sport>/<season>
-	lastfmURL := fmt.Sprintf("%s/user/%s/leagues/%s/%s", c.sleeperURL, userID, sport, season)
+	reqURL := fmt.Sprintf("%s/user/%s/leagues/%s/%s", c.sleeperURL, userID, sport, season)
 
 	leagues := new(LeaguesInfoJSON)
 
-	err := c.get(lastfmURL, leagues)
+	err := c.get(reqURL, leagues)
 
 	if err != nil {
 		return *leagues, err
@@ -184,11 +184,11 @@ leagueID (required) : The ID of the league to retrieve
 */
 func (c *Client) GetLeague(leagueID string) (LeagueInfoJSON, error) {
 	// https://api.sleeper.app/v1/league/<league_id>
-	lastfmURL := fmt.Sprintf("%s/league/%s", c.sleeperURL, leagueID)
+	reqURL := fmt.Sprintf("%s/league/%s", c.sleeperURL, leagueID)
 
 	league := new(LeagueInfoJSON)
 
-	err := c.get(lastfmURL, league)
+	err := c.get(reqURL, league)
 
 	if err != nil {
 		return *league, err
@@ -204,11 +204,11 @@ leagueID (required) : The ID of the league to retrieve
 */
 func (c *Client) GetLeagueRosters(leagueID string) (RostersJSON, error) {
 	// https://api.sleeper.app/v1/league/<league_id>/rosters
-	lastfmURL := fmt.Sprintf("%s/league/%s/rosters", c.sleeperURL, leagueID)
+	reqURL := fmt.Sprintf("%s/league/%s/rosters", c.sleeperURL, leagueID)
 
 	rosters := new(RostersJSON)
 
-	err := c.get(lastfmURL, rosters)
+	err := c.get(reqURL, rosters)
 
 	if err != nil {
 		return *rosters, err
@@ -227,11 +227,11 @@ leagueID (required) : The ID of the league to retrieve
 */
 func (c *Client) GetLeagueUsers(leagueID string) (UsersJSON, error) {
 	// https://api.sleeper.app/v1/league/<league_id>/users
-	lastfmURL := fmt.Sprintf("%s/league/%s/users", c.sleeperURL, leagueID)
+	reqURL := fmt.Sprintf("%s/league/%s/users", c.sleeperURL, leagueID)
 
 	users := new(UsersJSON)
 
-	err := c.get(lastfmURL, users)
+	err := c.get(reqURL, users)
 
 	if err != nil {
 		return *users, err
@@ -248,11 +248,11 @@ week 	 (required) : The week number to get the matchups
 */
 func (c *Client) GetLeagueMatchups(leagueID string, week int8) (MatchupsJSON, error) {
 	// https://api.sleeper.app/v1/league/<league_id>/matchups/<week>
-	lastfmURL := fmt.Sprintf("%s/league/%s/matchups/%d", c.sleeperURL, leagueID, week)
+	reqURL := fmt.Sprintf("%s/league/%s/matchups/%d", c.sleeperURL, leagueID, week)
 
 	matchups := new(MatchupsJSON)
 
-	err := c.get(lastfmURL, matchups)
+	err := c.get(reqURL, matchups)
 
 	if err != nil {
 		return *matchups, err
@@ -269,11 +269,11 @@ week 	 (required) : The week number to get the matchups
 */
 func (c *Client) GetLeaguePlayoffBracket(leagueID string, bracket Bracket) (PlayoffBracketJSON, error) {
 	// https://api.sleeper.app/v1/league/<league_id>/<bracket_type>
-	lastfmURL := fmt.Sprintf("%s/league/%s/%s", c.sleeperURL, leagueID, bracket)
+	reqURL := fmt.Sprintf("%s/league/%s/%s", c.sleeperURL, leagueID, bracket)
 
 	playoffBracket := new(PlayoffBracketJSON)
 
-	err := c.get(lastfmURL, playoffBracket)
+	err := c.get(reqURL, playoffBracket)
 
 	if err != nil {
 		return *playoffBracket, err

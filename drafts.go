@@ -58,11 +58,11 @@ leagueID (required) : The ID of the league for which you are trying to retrieve 
 */
 func (c *Client) GetLeagueDrafts(leagueID string) (DraftsJSON, error) {
 	// https://api.sleeper.app/v1/league/<league_id>/drafts
-	lastfmURL := fmt.Sprintf("%s/league/%s/drafts", c.sleeperURL, leagueID)
+	reqURL := fmt.Sprintf("%s/league/%s/drafts", c.sleeperURL, leagueID)
 
 	drafts := new(DraftsJSON)
 
-	err := c.get(lastfmURL, drafts)
+	err := c.get(reqURL, drafts)
 
 	if err != nil {
 		return *drafts, err
@@ -78,11 +78,11 @@ draftID (required) : The ID of the draft to retrieve
 */
 func (c *Client) GetDraft(draftID string) (DraftJSON, error) {
 	// https://api.sleeper.app/v1/draft/<draft_id>
-	lastfmURL := fmt.Sprintf("%s/draft/%s", c.sleeperURL, draftID)
+	reqURL := fmt.Sprintf("%s/draft/%s", c.sleeperURL, draftID)
 
 	draft := new(DraftJSON)
 
-	err := c.get(lastfmURL, draft)
+	err := c.get(reqURL, draft)
 
 	if err != nil {
 		return *draft, err
@@ -98,11 +98,11 @@ draftID (required) : The ID of the draft to retrieve picks for
 */
 func (c *Client) GetDraftPicks(draftID string) (DraftPicksJSON, error) {
 	// https://api.sleeper.app/v1/draft/<draft_id>/picks
-	lastfmURL := fmt.Sprintf("%s/draft/%s/picks", c.sleeperURL, draftID)
+	reqURL := fmt.Sprintf("%s/draft/%s/picks", c.sleeperURL, draftID)
 
 	picks := new(DraftPicksJSON)
 
-	err := c.get(lastfmURL, picks)
+	err := c.get(reqURL, picks)
 
 	if err != nil {
 		return *picks, err
@@ -118,11 +118,11 @@ draftID (required) : The ID of the draft to retrieve traded picks for
 */
 func (c *Client) GetDraftTradedPicks(draftID string) (DraftTradedPicks, error) {
 	// https://api.sleeper.app/v1/draft/<draft_id>/traded_picks
-	lastfmURL := fmt.Sprintf("%s/draft/%s/traded_picks", c.sleeperURL, draftID)
+	reqURL := fmt.Sprintf("%s/draft/%s/traded_picks", c.sleeperURL, draftID)
 
 	picks := new(DraftTradedPicks)
 
-	err := c.get(lastfmURL, picks)
+	err := c.get(reqURL, picks)
 
 	if err != nil {
 		return *picks, err
