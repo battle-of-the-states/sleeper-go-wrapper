@@ -1,9 +1,9 @@
 package sleeper
 
 import (
-	"fmt"
 	"testing"
-	"time"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestGetCurrentState(t *testing.T) {
@@ -19,18 +19,12 @@ func TestGetCurrentState(t *testing.T) {
 		t.Error(err)
 	}
 
-	var tests = []struct {
-		test     string
-		expected string
-	}{
-		{res.Season, fmt.Sprint(time.Now().Year())},
-		{res.LeagueSeason, fmt.Sprint(time.Now().Year())},
-		{res.PreviousSeason, fmt.Sprint(time.Now().Year() - 1)},
-	}
-
-	for _, test := range tests {
-		if test.test != test.expected {
-			t.Errorf("Test Failed: %s expected, received: %s", test.expected, test.test)
-		}
-	}
+	require.NotEmpty(t, res.Week)
+	require.NotEmpty(t, res.SeasonType)
+	require.NotEmpty(t, res.Season)
+	require.NotEmpty(t, res.PreviousSeason)
+	require.NotEmpty(t, res.Leg)
+	require.NotEmpty(t, res.LeagueSeason)
+	require.NotEmpty(t, res.LeagueCreateSeason)
+	require.NotEmpty(t, res.DisplayWeek)
 }

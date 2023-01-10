@@ -96,7 +96,7 @@ func LoopbackHoursOpt(page int) TrendingRequestOption {
 	}
 }
 
-func processOptions(options ...TrendingRequestOption) trendingRequestOptions {
+func processTrendingOptions(options ...TrendingRequestOption) trendingRequestOptions {
 	o := trendingRequestOptions{
 		urlParams: url.Values{},
 	}
@@ -125,11 +125,11 @@ sport (required) : The sport to get all players for
 */
 func (c *Client) GetAllPlayers(sport Sport) (AllPlayersJSON, error) {
 	// https://api.sleeper.app/v1/players/nfl
-	lastfmURL := fmt.Sprintf("%s/players/%s", c.sleeperURL, sport)
+	reqURL := fmt.Sprintf("%s/players/%s", c.sleeperURL, sport)
 
 	players := new(AllPlayersJSON)
 
-	err := c.get(lastfmURL, players)
+	err := c.get(reqURL, players)
 
 	if err != nil {
 		return *players, err
@@ -154,19 +154,19 @@ limit			(optional) : Number of results you want, (default is 25)
 */
 func (c *Client) GetTrendingPlayers(sport Sport, addOrDrop TrendingType, opts ...TrendingRequestOption) (TrendingPlayersJSON, error) {
 	// https://api.sleeper.app/v1/players/<sport>/trending/<type>?lookback_hours=<hours>&limit=<int>
-	lastfmURL := fmt.Sprintf("%s/players/%s/trending/%s", c.sleeperURL, sport, addOrDrop)
+	reqURL := fmt.Sprintf("%s/players/%s/trending/%s", c.sleeperURL, sport, addOrDrop)
 
-	values := processOptions(opts...).urlParams
+	values := processTrendingOptions(opts...).urlParams
 
 	if query := values.Encode(); query != "" {
-		lastfmURL += "?" + query
+		reqURL += "?" + query
 	}
 
-	fmt.Println(lastfmURL)
+	fmt.Println(reqURL)
 
 	players := new(TrendingPlayersJSON)
 
-	err := c.get(lastfmURL, players)
+	err := c.get(reqURL, players)
 
 	if err != nil {
 		return *players, err

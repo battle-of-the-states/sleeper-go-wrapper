@@ -83,11 +83,11 @@ usernameOrID (Required) : The user you want to fetch.
 */
 func (c *Client) GetUser(usernameOrID string) (UserSimpleJSON, error) {
 	// https://api.sleeper.app/v1/user/<username> or https://api.sleeper.app/v1/user/<user_id>
-	lastfmURL := fmt.Sprintf("%s/user/%s", c.sleeperURL, usernameOrID)
+	reqURL := fmt.Sprintf("%s/user/%s", c.sleeperURL, usernameOrID)
 
 	user := new(UserSimpleJSON)
 
-	err := c.get(lastfmURL, user)
+	err := c.get(reqURL, user)
 
 	if err != nil {
 		return *user, err

@@ -6,11 +6,6 @@ import (
 	"net/http"
 )
 
-const (
-	SLEEPER_BASE_URL = "https://api.sleeper.app/v1"
-	SLEEPER_BASE_CDN = "https://sleepercdn.com/"
-)
-
 // Client is a client for working with the sleeper.app read only Web API
 type Client struct {
 	httpClient *http.Client
@@ -32,26 +27,6 @@ func NewClient(httpClient *http.Client) (*Client, error) {
 
 	return c, nil
 }
-
-// Sport ensures users give valid options for sports
-type Sport string
-
-// Bracket ensures users give valid options for the playoff brackets
-type Bracket string
-
-// TODO: Not sure what all sports are allowed
-const (
-	// NFL is the nfl sport tag
-	NFL Sport = "nfl"
-	// NBA is the nba sport tag
-	NBA Sport = "nba"
-	// LCS is the lcs sport tag
-	LCS Sport = "lcs"
-	// WinnersBracket is the winners bracket
-	WinnersBracket Bracket = "winners_bracket"
-	// LosersBracket is the losers bracket
-	LosersBracket Bracket = "losers_bracket"
-)
 
 // Error represents an error returned by the sleeper.app Web API.
 type Error struct {
