@@ -24,6 +24,7 @@ func TestGetUser(t *testing.T) {
 		{res.Username, "kylewithanr"},
 		{*res.UserID, "446778421305929728"},
 		{res.DisplayName, "KyleWithAnR"},
+		{res.GetUserDisplayName(), "KyleWithAnR"},
 	}
 
 	for _, test := range tests {
