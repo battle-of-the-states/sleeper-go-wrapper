@@ -75,7 +75,7 @@ func TestGetPositionStats(t *testing.T) {
 
 	qb1 := qb1Info.Player
 
-	require.Equal(t, 10, qb1.YearsExp)
+	require.Equal(t, 11, qb1.YearsExp)
 	require.Equal(t, Tennessee, NFLTeamAbbreviation(qb1.Team))
 	require.Equal(t, QuarterBack, FFPosition(qb1.Position))
 	require.Equal(t, int64(1672349449646), qb1.NewsUpdated)
@@ -167,7 +167,7 @@ func TestGetPositionProjections(t *testing.T) {
 
 	qb1 := qb1Info.Player
 
-	require.Equal(t, 10, qb1.YearsExp)
+	require.Equal(t, 11, qb1.YearsExp)
 	require.Equal(t, Tennessee, NFLTeamAbbreviation(qb1.Team))
 	require.Equal(t, QuarterBack, FFPosition(qb1.Position))
 	require.Equal(t, int64(1672349449646), qb1.NewsUpdated)

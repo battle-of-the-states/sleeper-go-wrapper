@@ -99,3 +99,11 @@ func (c *Client) GetUser(usernameOrID string) (UserSimpleJSON, error) {
 
 	return *user, nil
 }
+
+// GetUserDisplayName will return the display name or username if the user's display name is empty
+func (u UserSimpleJSON) GetUserDisplayName() string {
+	if u.DisplayName != "" {
+		return u.DisplayName
+	}
+	return u.Username
+}
