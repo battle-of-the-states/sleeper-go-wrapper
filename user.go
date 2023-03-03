@@ -70,11 +70,13 @@ type User struct {
 }
 
 /*
-Via the user resource, you can GET the user object by either providing the
+GetUser Via the user resource, you can GET the user object by either providing the
 username or user_id of the user.
 
 ** Keep in mind that the username of a user can change over time, so if you are
 storing information, you'll want to hold onto the user_id.**
+
+https://docs.sleeper.com/#user
 
 usernameOrID (Required) : The user you want to fetch.
 */

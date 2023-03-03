@@ -34,7 +34,9 @@ type Roster struct {
 }
 
 /*
-This endpoint retrieves all rosters in a league.
+GetLeagueRosters retrieves all rosters in a league.
+
+https://docs.sleeper.com/#getting-rosters-in-a-league
 
 leagueID (required) : The ID of the league to retrieve
 */

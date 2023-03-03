@@ -108,6 +108,8 @@ func processTrendingOptions(options ...TrendingRequestOption) trendingRequestOpt
 }
 
 /*
+GetAllPlayers retrieves all players in the Sleeper DB
+
 Please use this call sparingly, as it is intended only to be used once
 per day at most to keep your player IDs updated. The average size of this
 query is 5MB.
@@ -120,6 +122,8 @@ You should save this information on your own servers as this is not intended
 to be called every time you need to look up players due to the file size being
 close to 5MB in size. You do not need to call this endpoint more than once
 per day.
+
+https://docs.sleeper.com/#fetch-all-players
 
 sport (required) : The sport to get all players for
 */
@@ -139,6 +143,8 @@ func (c *Client) GetAllPlayers(sport Sport) (AllPlayers, error) {
 }
 
 /*
+GetTrendingPlayers retrieves the trending players (adds / drops) over specified time period
+
 Please give attribution to Sleeper you are using our trending data.
 If you'd like to embed our trending list on your website or blog,
 please use the embed code on the right.
@@ -146,6 +152,7 @@ please use the embed code on the right.
 You can use this endpoint to get a list of trending players based on
 adds or drops in the past 24 hours.
 
+https://docs.sleeper.com/#trending-players
 
 sport			(required) : The sport to get trending players for
 addOrDrop		(required) : Either add or drop

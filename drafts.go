@@ -77,6 +77,8 @@ multiple drafts, especially dynasty leagues.
 
 Drafts are sorted by most recent to earliest. Most leagues should only have one draft.
 
+https://docs.sleeper.com/#get-all-drafts-for-a-league
+
 leagueID (required) : The ID of the league for which you are trying to retrieve drafts.
 */
 func (c *Client) GetLeagueDrafts(leagueID string) ([]Draft, error) {
@@ -97,12 +99,14 @@ func (c *Client) GetLeagueDrafts(leagueID string) ([]Draft, error) {
 /*
 GetDraft retrieves a specific draft
 
+https://docs.sleeper.com/#get-a-specific-draft
+
 draftID (required) : The ID of the draft to retrieve
-*/ // Draft is the struct for a single draft event
+*/
 func (c *Client) GetDraft(draftID string) (Draft, error) {
 	// https://api.sleeper.app/v1/draft/<draft_id>
 	reqURL := fmt.Sprintf("%s/draft/%s", c.sleeperURL, draftID)
-	// Draft is the struct for a single draft event
+
 	draft := new(Draft)
 
 	err := c.get(reqURL, draft)
@@ -116,6 +120,8 @@ func (c *Client) GetDraft(draftID string) (Draft, error) {
 
 /*
 GetDraft retrieves all picks in a draft.
+
+https://docs.sleeper.com/#get-all-picks-in-a-draft
 
 draftID (required) : The ID of the draft to retrieve picks for
 */
@@ -136,6 +142,8 @@ func (c *Client) GetDraftPicks(draftID string) ([]DraftPick, error) {
 
 /*
 GetDraftTradedPicks retrieves all traded picks in a draft
+
+https://docs.sleeper.com/#get-traded-picks-in-a-draft
 
 draftID (required) : The ID of the draft to retrieve traded picks for
 */

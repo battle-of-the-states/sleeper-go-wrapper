@@ -84,7 +84,9 @@ type LeagueInfo struct {
 }
 
 /*
-This endpoint retrieves all leagues for a user.
+GetLeaguesForUser retrieves all leagues for a user.
+
+https://docs.sleeper.com/#get-all-leagues-for-user
 
 sport	(required) : We only support "nfl" right now.
 userID (required) : The numerical ID of the user.
@@ -106,7 +108,9 @@ func (c *Client) GetLeaguesForUser(sport Sport, userID, season string) ([]League
 }
 
 /*
-This endpoint retrieves all leagues for a user.
+GetLeague retrieves a specific league.
+
+https://docs.sleeper.com/#get-a-specific-league
 
 leagueID (required) : The ID of the league to retrieve
 */
@@ -126,10 +130,12 @@ func (c *Client) GetLeague(leagueID string) (LeagueInfo, error) {
 }
 
 /*
-This endpoint retrieves all users in a league.
+GetLeagueUsers retrieves all users in a league.
 
 This also includes each user's display_name, avatar, and their
 metadata which sometimes includes a nickname they gave their team.
+
+https://docs.sleeper.com/#getting-users-in-a-league
 
 leagueID (required) : The ID of the league to retrieve
 */

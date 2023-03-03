@@ -15,7 +15,9 @@ type Matchup struct {
 }
 
 /*
-This endpoint retrieves all users in a league.
+GetLeagueMatchups retrieves all users in a league.
+
+https://docs.sleeper.com/#getting-matchups-in-a-league
 
 leagueID (required) : The ID of the league to retrieve
 week 	 (required) : The week number to get the matchups

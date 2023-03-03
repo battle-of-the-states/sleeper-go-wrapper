@@ -15,7 +15,9 @@ type LeagueState struct {
 }
 
 /*
-This endpoint returns information about the current state for any sport.
+GetCurrentLeagueState returns information about the current state for any sport.
+
+https://docs.sleeper.com/#get-nfl-state
 
 sport   (required) : nfl, nba, lcs, etc...
 */

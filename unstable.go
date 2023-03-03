@@ -88,6 +88,8 @@ func processUnstableStatsOptions(options ...UnstableStatsRequestOption) unstable
 }
 
 /*
+UnstableGetPlayerInfo
+
 **UNSTABLE**
 
 This endpoint could change at any time without notice.
@@ -128,6 +130,8 @@ func (c *Client) UnstableGetPlayerInfo(sport Sport, infoType PlayerInfoType, pla
 }
 
 /*
+UnstableGetPlayersInfoByPosition
+
 **UNSTABLE**
 
 This endpoint could change at any time without notice.

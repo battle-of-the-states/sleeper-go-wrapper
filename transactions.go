@@ -36,7 +36,7 @@ type Transaction struct {
 }
 
 /*
-This endpoint retrieves all free agent transactions, waivers and trades.
+GetTransactions retrieves all free agent transactions, waivers and trades.
 
 https://docs.sleeper.com/#get-transactions
 

@@ -23,9 +23,11 @@ type PlayoffRound struct {
 }
 
 /*
-This endpoint retrieves the playoff bracket for a league for 4, 6, and 8 team playoffs.
+GetLeaguePlayoffBracket retrieves the playoff bracket for a league for 4, 6, and 8 team playoffs.
 
 Each row represents a matchup between 2 teams.
+
+https://docs.sleeper.com/#getting-the-playoff-bracket
 
 leagueID (required) : The ID of the league to retrieve bracket from
 bracket  (required) : The bracket type to retrieve
