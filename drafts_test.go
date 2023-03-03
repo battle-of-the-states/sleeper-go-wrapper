@@ -4,6 +4,36 @@ import (
 	"testing"
 )
 
+func TestGetUserDrafts(t *testing.T) {
+	client, err = NewClient(&hClient)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	res, err := client.GetUserDrafts("446778421305929728", NFL, "2022")
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	var tests = []struct {
+		test     string
+		expected string
+	}{
+		{res[0].Type, "snake"},
+		{res[0].Status, "complete"},
+		{res[0].Sport, "nfl"},
+		{res[0].Season, "2022"},
+	}
+
+	for _, test := range tests {
+		if test.test != test.expected {
+			t.Errorf("Test Failed: %s expected, received: %s", test.expected, test.test)
+		}
+	}
+}
+
 func TestGetLeagueDrafts(t *testing.T) {
 	client, err = NewClient(&hClient)
 

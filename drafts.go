@@ -47,6 +47,31 @@ type DraftTradedPick struct {
 }
 
 /*
+GetUserDrafts retrieves all drafts by a user.
+
+https://docs.sleeper.com/#get-all-drafts-for-user
+
+userID  (required)  : The ID of the user for which you are trying to retrieve drafts.
+sport 	(required)	: We only support "nfl" right now.
+season 	(required)	: The season to retrieve drafts for
+*/
+func (c *Client) GetUserDrafts(userID string, sport Sport, season string) ([]Draft, error) {
+	// https://api.sleeper.app/v1/user/<user_id>/drafts/<sport>/<season>
+	reqURL := fmt.Sprintf("%s/user/%s/drafts/%s/%s", c.sleeperURL, userID, sport, season)
+
+	fmt.Println(reqURL)
+	drafts := new([]Draft)
+
+	err := c.get(reqURL, drafts)
+
+	if err != nil {
+		return *drafts, err
+	}
+
+	return *drafts, nil
+}
+
+/*
 GetLeagueDrafts retrieves all drafts for a league. Keep in mind that a league can have
 multiple drafts, especially dynasty leagues.
 
