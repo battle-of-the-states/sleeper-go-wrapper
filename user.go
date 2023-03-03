@@ -10,13 +10,10 @@ type UserSimpleJSON struct {
 	Email       string  `json:"email,omitempty"`
 }
 
-// UsersJSON is the return type for all users in a league
-type UsersJSON []UserJSON
-
-// UserJSON is a single user from the league users API.
-type UserJSON struct {
-	UserID   string      `json:"user_id"`
-	Settings interface{} `json:"settings"`
+// User is a single user from the league users API.
+type User struct {
+	UserID   string `json:"user_id"`
+	Settings any    `json:"settings"`
 	Metadata struct {
 		TeamName                string `json:"team_name"`
 		TeamNameUpdate          string `json:"team_name_update"`
@@ -73,11 +70,13 @@ type UserJSON struct {
 }
 
 /*
-Via the user resource, you can GET the user object by either providing the
+GetUser Via the user resource, you can GET the user object by either providing the
 username or user_id of the user.
 
 ** Keep in mind that the username of a user can change over time, so if you are
 storing information, you'll want to hold onto the user_id.**
+
+https://docs.sleeper.com/#user
 
 usernameOrID (Required) : The user you want to fetch.
 */
@@ -100,10 +99,24 @@ func (c *Client) GetUser(usernameOrID string) (UserSimpleJSON, error) {
 	return *user, nil
 }
 
+/*
+	User methods
+*/
+
 // GetUserDisplayName will return the display name or username if the user's display name is empty
 func (u UserSimpleJSON) GetUserDisplayName() string {
 	if u.DisplayName != "" {
 		return u.DisplayName
 	}
 	return u.Username
+}
+
+// GetUserAvatar will return the url for the user's full avatar
+func (u UserSimpleJSON) GetUserAvatar() string {
+	return fmt.Sprintf("%s/%s", SLEEPER_AVATAR_URL, u.Avatar)
+}
+
+// GetUserAvatarThumbnail will return the url for the user's thumbnail avatar
+func (u UserSimpleJSON) GetUserAvatarThumbnail() string {
+	return fmt.Sprintf("%s/%s", SLEEPER_AVATAR_THUMBNAIL_URL, u.Avatar)
 }

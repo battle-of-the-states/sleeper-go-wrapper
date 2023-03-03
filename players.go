@@ -6,57 +6,57 @@ import (
 	"strconv"
 )
 
-// AllPlayersJSON is the return type for the all players endpoint.
-type AllPlayersJSON map[string]PlayerInfoJSON
+// AllPlayers is the return type for the all players endpoint.
+type AllPlayers map[string]PlayerInfo
 
-// PlayerInfoJSON is information about a single player in the all players endpoint.
-type PlayerInfoJSON struct {
-	InjuryStatus          interface{} `json:"injury_status"`
-	SportradarID          string      `json:"sportradar_id"`
-	Number                int         `json:"number"`
-	FirstName             string      `json:"first_name"`
-	PracticeParticipation interface{} `json:"practice_participation"`
-	SearchFullName        string      `json:"search_full_name"`
-	Hashtag               string      `json:"hashtag"`
-	DepthChartOrder       interface{} `json:"depth_chart_order"`
-	FantasyDataID         int         `json:"fantasy_data_id"`
-	Sport                 string      `json:"sport"`
-	InjuryBodyPart        interface{} `json:"injury_body_part"`
-	RotowireID            int         `json:"rotowire_id"`
-	Metadata              interface{} `json:"metadata"`
-	SearchFirstName       string      `json:"search_first_name"`
-	LastName              string      `json:"last_name"`
-	PracticeDescription   interface{} `json:"practice_description"`
-	FantasyPositions      []string    `json:"fantasy_positions"`
-	Status                string      `json:"status"`
-	NewsUpdated           interface{} `json:"news_updated"`
-	HighSchool            interface{} `json:"high_school"`
-	Position              string      `json:"position"`
-	SwishID               interface{} `json:"swish_id"`
-	SearchLastName        string      `json:"search_last_name"`
-	InjuryStartDate       interface{} `json:"injury_start_date"`
-	Weight                string      `json:"weight"`
-	DepthChartPosition    interface{} `json:"depth_chart_position"`
-	PlayerID              string      `json:"player_id"`
-	InjuryNotes           interface{} `json:"injury_notes"`
-	YahooID               int         `json:"yahoo_id"`
-	PandascoreID          interface{} `json:"pandascore_id"`
-	Height                string      `json:"height"`
-	StatsID               interface{} `json:"stats_id"`
-	BirthCity             interface{} `json:"birth_city"`
-	RotoworldID           interface{} `json:"rotoworld_id"`
-	BirthState            interface{} `json:"birth_state"`
-	Team                  interface{} `json:"team"`
-	College               string      `json:"college"`
-	GsisID                interface{} `json:"gsis_id"`
-	Age                   int         `json:"age"`
-	BirthCountry          interface{} `json:"birth_country"`
-	Active                bool        `json:"active"`
-	SearchRank            int         `json:"search_rank"`
-	BirthDate             string      `json:"birth_date"`
-	YearsExp              int         `json:"years_exp"`
-	EspnID                int         `json:"espn_id"`
-	FullName              string      `json:"full_name"`
+// PlayerInfo is information about a single player in the all players endpoint.
+type PlayerInfo struct {
+	InjuryStatus          any      `json:"injury_status"`
+	SportradarID          string   `json:"sportradar_id"`
+	Number                int      `json:"number"`
+	FirstName             string   `json:"first_name"`
+	PracticeParticipation any      `json:"practice_participation"`
+	SearchFullName        string   `json:"search_full_name"`
+	Hashtag               string   `json:"hashtag"`
+	DepthChartOrder       any      `json:"depth_chart_order"`
+	FantasyDataID         int      `json:"fantasy_data_id"`
+	Sport                 string   `json:"sport"`
+	InjuryBodyPart        any      `json:"injury_body_part"`
+	RotowireID            int      `json:"rotowire_id"`
+	Metadata              any      `json:"metadata"`
+	SearchFirstName       string   `json:"search_first_name"`
+	LastName              string   `json:"last_name"`
+	PracticeDescription   any      `json:"practice_description"`
+	FantasyPositions      []string `json:"fantasy_positions"`
+	Status                string   `json:"status"`
+	NewsUpdated           any      `json:"news_updated"`
+	HighSchool            any      `json:"high_school"`
+	Position              string   `json:"position"`
+	SwishID               any      `json:"swish_id"`
+	SearchLastName        string   `json:"search_last_name"`
+	InjuryStartDate       any      `json:"injury_start_date"`
+	Weight                string   `json:"weight"`
+	DepthChartPosition    any      `json:"depth_chart_position"`
+	PlayerID              string   `json:"player_id"`
+	InjuryNotes           any      `json:"injury_notes"`
+	YahooID               int      `json:"yahoo_id"`
+	PandascoreID          any      `json:"pandascore_id"`
+	Height                string   `json:"height"`
+	StatsID               any      `json:"stats_id"`
+	BirthCity             any      `json:"birth_city"`
+	RotoworldID           any      `json:"rotoworld_id"`
+	BirthState            any      `json:"birth_state"`
+	Team                  any      `json:"team"`
+	College               string   `json:"college"`
+	GsisID                any      `json:"gsis_id"`
+	Age                   int      `json:"age"`
+	BirthCountry          any      `json:"birth_country"`
+	Active                bool     `json:"active"`
+	SearchRank            int      `json:"search_rank"`
+	BirthDate             string   `json:"birth_date"`
+	YearsExp              int      `json:"years_exp"`
+	EspnID                int      `json:"espn_id"`
+	FullName              string   `json:"full_name"`
 }
 
 // TrendingPlayersJSON is the return type of the trending players API.
@@ -108,6 +108,8 @@ func processTrendingOptions(options ...TrendingRequestOption) trendingRequestOpt
 }
 
 /*
+GetAllPlayers retrieves all players in the Sleeper DB
+
 Please use this call sparingly, as it is intended only to be used once
 per day at most to keep your player IDs updated. The average size of this
 query is 5MB.
@@ -117,17 +119,19 @@ Since rosters and draft picks contain Player IDs which look like "1042",
 /players call provides you the map necessary to look up any player.
 
 You should save this information on your own servers as this is not intended
-to be called every time you need to look up players due to the filesize being
+to be called every time you need to look up players due to the file size being
 close to 5MB in size. You do not need to call this endpoint more than once
 per day.
 
+https://docs.sleeper.com/#fetch-all-players
+
 sport (required) : The sport to get all players for
 */
-func (c *Client) GetAllPlayers(sport Sport) (AllPlayersJSON, error) {
+func (c *Client) GetAllPlayers(sport Sport) (AllPlayers, error) {
 	// https://api.sleeper.app/v1/players/nfl
 	reqURL := fmt.Sprintf("%s/players/%s", c.sleeperURL, sport)
 
-	players := new(AllPlayersJSON)
+	players := new(AllPlayers)
 
 	err := c.get(reqURL, players)
 
@@ -139,6 +143,8 @@ func (c *Client) GetAllPlayers(sport Sport) (AllPlayersJSON, error) {
 }
 
 /*
+GetTrendingPlayers retrieves the trending players (adds / drops) over specified time period
+
 Please give attribution to Sleeper you are using our trending data.
 If you'd like to embed our trending list on your website or blog,
 please use the embed code on the right.
@@ -146,6 +152,7 @@ please use the embed code on the right.
 You can use this endpoint to get a list of trending players based on
 adds or drops in the past 24 hours.
 
+https://docs.sleeper.com/#trending-players
 
 sport			(required) : The sport to get trending players for
 addOrDrop		(required) : Either add or drop
@@ -161,8 +168,6 @@ func (c *Client) GetTrendingPlayers(sport Sport, addOrDrop TrendingType, opts ..
 	if query := values.Encode(); query != "" {
 		reqURL += "?" + query
 	}
-
-	fmt.Println(reqURL)
 
 	players := new(TrendingPlayersJSON)
 

@@ -7,23 +7,24 @@ import (
 	"strconv"
 )
 
+// UnstableStatPlayer is the unstable player struct returned with the stat endpoint
 type UnstableStatPlayer struct {
-	YearsExp         int                     `json:"years_exp"`
-	Team             string                  `json:"team"`
-	Position         string                  `json:"position"`
-	NewsUpdated      int64                   `json:"news_updated"`
-	Metadata         *map[string]interface{} `json:"metadata"`
-	LastName         string                  `json:"last_name"`
-	InjuryStatus     *string                 `json:"injury_status"`
-	InjuryStartDate  *interface{}            `json:"injury_start_date"`
-	InjuryNotes      *interface{}            `json:"injury_notes"`
-	InjuryBodyPart   *string                 `json:"injury_body_part"`
-	FirstName        string                  `json:"first_name"`
-	FantasyPositions []string                `json:"fantasy_positions"`
+	YearsExp         int             `json:"years_exp"`
+	Team             string          `json:"team"`
+	Position         string          `json:"position"`
+	NewsUpdated      int64           `json:"news_updated"`
+	Metadata         *map[string]any `json:"metadata"`
+	LastName         string          `json:"last_name"`
+	InjuryStatus     *string         `json:"injury_status"`
+	InjuryStartDate  *any            `json:"injury_start_date"`
+	InjuryNotes      *any            `json:"injury_notes"`
+	InjuryBodyPart   *string         `json:"injury_body_part"`
+	FirstName        string          `json:"first_name"`
+	FantasyPositions []string        `json:"fantasy_positions"`
 }
 
-// UnstablePlayerStatsJSON is an unstable struct for player stats and projections
-type UnstablePlayerStatsJSON struct {
+// UnstablePlayerStats is an unstable struct for player stats and projections
+type UnstablePlayerStats struct {
 	Week         *int                `json:"week"`
 	Team         string              `json:"team"`
 	Stats        map[string]float32  `json:"stats"`
@@ -87,6 +88,8 @@ func processUnstableStatsOptions(options ...UnstableStatsRequestOption) unstable
 }
 
 /*
+UnstableGetPlayerInfo
+
 **UNSTABLE**
 
 This endpoint could change at any time without notice.
@@ -100,7 +103,7 @@ seasonType		(required) : The type of season {pre, post, regular}
 season			(required) : The season the projections are for
 week			(optional) : Week number to retrieve stats/projections for (entire season is default)
 */
-func (c *Client) UnstableGetPlayerInfo(sport Sport, infoType PlayerInfoType, playerID string, opts ...UnstableStatsRequestOption) (UnstablePlayerStatsJSON, error) {
+func (c *Client) UnstableGetPlayerInfo(sport Sport, infoType PlayerInfoType, playerID string, opts ...UnstableStatsRequestOption) (UnstablePlayerStats, error) {
 	// https://api.sleeper.app/{stats or projections}/{sport}/player/{player_id}?season_type=regular&season={year}&week={week_number}
 	reqURL := fmt.Sprintf("%s/%s/%s/player/%s", SLEEPER_BASE_URL_UNSTABLE, infoType, sport, playerID)
 
@@ -108,14 +111,14 @@ func (c *Client) UnstableGetPlayerInfo(sport Sport, infoType PlayerInfoType, pla
 
 	// Need to make a check that the required queries are actually set, else throw an error
 	if !values.Has("season") || !values.Has("season_type") {
-		return UnstablePlayerStatsJSON{}, errors.New("season and season_type are required options you must pass")
+		return UnstablePlayerStats{}, errors.New("season and season_type are required options you must pass")
 	}
 
 	if query := values.Encode(); query != "" {
 		reqURL += "?" + query
 	}
 
-	stat := new(UnstablePlayerStatsJSON)
+	stat := new(UnstablePlayerStats)
 
 	err := c.get(reqURL, stat)
 
@@ -127,6 +130,8 @@ func (c *Client) UnstableGetPlayerInfo(sport Sport, infoType PlayerInfoType, pla
 }
 
 /*
+UnstableGetPlayersInfoByPosition
+
 **UNSTABLE**
 
 This endpoint could change at any time without notice.
@@ -140,7 +145,7 @@ seasonType		(required) : The type of season {pre, post, regular}
 season			(required) : The season the projections are for
 week			(optional) : The week number the projections are for
 */
-func (c *Client) UnstableGetPlayersInfoByPosition(sport Sport, infoType PlayerInfoType, season string, week int, opts ...UnstableStatsRequestOption) ([]UnstablePlayerStatsJSON, error) {
+func (c *Client) UnstableGetPlayersInfoByPosition(sport Sport, infoType PlayerInfoType, season string, week int, opts ...UnstableStatsRequestOption) ([]UnstablePlayerStats, error) {
 	// https://api.sleeper.app/{stats or projections}/{sport}/{season}/{week}?season_type=regular&position=DEF&position=K&position=QB&position=RB&position=TE&position=WR
 	reqURL := fmt.Sprintf("%s/%s/%s/%s/%d", SLEEPER_BASE_URL_UNSTABLE, infoType, sport, season, week)
 
@@ -148,14 +153,14 @@ func (c *Client) UnstableGetPlayersInfoByPosition(sport Sport, infoType PlayerIn
 
 	// Need to make a check that the required queries are actually set, else throw an error
 	if !values.Has("season_type") || !values.Has("position") {
-		return []UnstablePlayerStatsJSON{}, errors.New("season and season_type are required options you must pass")
+		return []UnstablePlayerStats{}, errors.New("season and season_type are required options you must pass")
 	}
 
 	if query := values.Encode(); query != "" {
 		reqURL += "?" + query
 	}
 
-	stat := new([]UnstablePlayerStatsJSON)
+	stat := new([]UnstablePlayerStats)
 
 	err := c.get(reqURL, stat)
 

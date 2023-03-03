@@ -13,18 +13,18 @@ func TestGetCurrentState(t *testing.T) {
 		t.Error(err)
 	}
 
-	res, err := client.GetCurrentState("nfl")
+	res, err := client.GetCurrentLeagueState("nfl")
 
 	if err != nil {
 		t.Error(err)
 	}
 
-	require.NotEmpty(t, res.Week)
+	require.GreaterOrEqual(t, 0, res.Week)
 	require.NotEmpty(t, res.SeasonType)
 	require.NotEmpty(t, res.Season)
 	require.NotEmpty(t, res.PreviousSeason)
-	require.NotEmpty(t, res.Leg)
+	require.GreaterOrEqual(t, 0, res.Leg)
 	require.NotEmpty(t, res.LeagueSeason)
 	require.NotEmpty(t, res.LeagueCreateSeason)
-	require.NotEmpty(t, res.DisplayWeek)
+	require.GreaterOrEqual(t, 0, res.DisplayWeek)
 }

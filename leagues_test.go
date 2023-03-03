@@ -2,6 +2,8 @@ package sleeper
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestGetLeaguesForUser(t *testing.T) {
@@ -44,22 +46,13 @@ func TestGetLeague(t *testing.T) {
 		t.Error(err)
 	}
 
-	var tests = []struct {
-		test     string
-		expected string
-	}{
-		{res.Status, "complete"},
-		{res.Sport, "nfl"},
-		{res.SeasonType, "regular"},
-		{res.Season, "2021"},
-		{res.Name, "Sages Fantasy Football"},
-	}
-
-	for _, test := range tests {
-		if test.test != test.expected {
-			t.Errorf("Test Failed: %s expected, received: %s", test.expected, test.test)
-		}
-	}
+	require.Equal(t, StatusComplete, res.Status)
+	require.Equal(t, NFL, res.Sport)
+	require.Equal(t, RegularSeason, res.SeasonType)
+	require.Equal(t, "2021", res.Season)
+	require.Equal(t, "Sages Fantasy Football", res.Name)
+	require.Equal(t, "602989495826067456", res.PreviousLeagueID)
+	require.Equal(t, "732292628472778753", res.DraftID)
 }
 
 func TestGetLeagueRosters(t *testing.T) {
