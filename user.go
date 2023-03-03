@@ -12,8 +12,8 @@ type UserSimpleJSON struct {
 
 // User is a single user from the league users API.
 type User struct {
-	UserID   string      `json:"user_id"`
-	Settings interface{} `json:"settings"`
+	UserID   string `json:"user_id"`
+	Settings any    `json:"settings"`
 	Metadata struct {
 		TeamName                string `json:"team_name"`
 		TeamNameUpdate          string `json:"team_name_update"`

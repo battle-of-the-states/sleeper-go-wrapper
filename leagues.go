@@ -64,23 +64,23 @@ type LeagueInfo struct {
 		LatestLeagueWinnerRosterID string `json:"latest_league_winner_roster_id"`
 		Continued                  string `json:"continued"`
 	} `json:"metadata"`
-	LoserBracketID        interface{} `json:"loser_bracket_id"`
-	LeagueID              string      `json:"league_id"`
-	LastReadID            string      `json:"last_read_id"`
-	LastPinnedMessageID   string      `json:"last_pinned_message_id"`
-	LastMessageTime       int64       `json:"last_message_time"`
-	LastMessageTextMap    interface{} `json:"last_message_text_map"`
-	LastMessageID         string      `json:"last_message_id"`
-	LastMessageAttachment interface{} `json:"last_message_attachment"`
-	LastAuthorIsBot       bool        `json:"last_author_is_bot"`
-	LastAuthorID          string      `json:"last_author_id"`
-	LastAuthorDisplayName string      `json:"last_author_display_name"`
-	LastAuthorAvatar      string      `json:"last_author_avatar"`
-	GroupID               interface{} `json:"group_id"`
-	DraftID               string      `json:"draft_id"`
-	CompanyID             interface{} `json:"company_id"`
-	BracketID             int64       `json:"bracket_id"`
-	Avatar                string      `json:"avatar"`
+	LoserBracketID        any    `json:"loser_bracket_id"`
+	LeagueID              string `json:"league_id"`
+	LastReadID            string `json:"last_read_id"`
+	LastPinnedMessageID   string `json:"last_pinned_message_id"`
+	LastMessageTime       int64  `json:"last_message_time"`
+	LastMessageTextMap    any    `json:"last_message_text_map"`
+	LastMessageID         string `json:"last_message_id"`
+	LastMessageAttachment any    `json:"last_message_attachment"`
+	LastAuthorIsBot       bool   `json:"last_author_is_bot"`
+	LastAuthorID          string `json:"last_author_id"`
+	LastAuthorDisplayName string `json:"last_author_display_name"`
+	LastAuthorAvatar      string `json:"last_author_avatar"`
+	GroupID               any    `json:"group_id"`
+	DraftID               string `json:"draft_id"`
+	CompanyID             any    `json:"company_id"`
+	BracketID             int64  `json:"bracket_id"`
+	Avatar                string `json:"avatar"`
 }
 
 /*

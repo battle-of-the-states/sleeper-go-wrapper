@@ -16,9 +16,9 @@ type Draft struct {
 	LastPicked      int64             `json:"last_picked"`
 	LastMessageTime int64             `json:"last_message_time"`
 	LastMessageID   string            `json:"last_message_id"`
-	DraftOrder      interface{}       `json:"draft_order"`
+	DraftOrder      any               `json:"draft_order"`
 	DraftID         string            `json:"draft_id"`
-	Creators        interface{}       `json:"creators"`
+	Creators        any               `json:"creators"`
 	Created         int64             `json:"created"`
 }
 
@@ -30,20 +30,20 @@ type DraftPick struct {
 	PickedBy  string            `json:"picked_by"`
 	PickNo    int               `json:"pick_no"`
 	Metadata  map[string]string `json:"metadata"`
-	IsKeeper  interface{}       `json:"is_keeper"`
+	IsKeeper  any               `json:"is_keeper"`
 	DraftSlot int               `json:"draft_slot"`
 	DraftID   string            `json:"draft_id"`
 }
 
 // DraftTradedPick is a pick that is traded in the draft
 type DraftTradedPick struct {
-	Season          string      `json:"season"`
-	Round           int         `json:"round"`
-	RosterID        int         `json:"roster_id"`
-	PreviousOwnerID int         `json:"previous_owner_id"`
-	OwnerID         int         `json:"owner_id"`
-	DraftID         interface{} `json:"draft_id"`
-	LeagueID        *string     `json:"league_id"`
+	Season          string  `json:"season"`
+	Round           int     `json:"round"`
+	RosterID        int     `json:"roster_id"`
+	PreviousOwnerID int     `json:"previous_owner_id"`
+	OwnerID         int     `json:"owner_id"`
+	DraftID         any     `json:"draft_id"`
+	LeagueID        *string `json:"league_id"`
 }
 
 /*

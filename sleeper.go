@@ -66,7 +66,7 @@ func (c *Client) decodeError(statusCode int) error {
 }
 
 // get handles the get requests for the client
-func (c *Client) get(url string, result interface{}) error {
+func (c *Client) get(url string, result any) error {
 	for {
 		resp, err := c.httpClient.Get(url)
 

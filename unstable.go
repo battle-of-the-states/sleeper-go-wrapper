@@ -9,18 +9,18 @@ import (
 
 // UnstableStatPlayer is the unstable player struct returned with the stat endpoint
 type UnstableStatPlayer struct {
-	YearsExp         int                     `json:"years_exp"`
-	Team             string                  `json:"team"`
-	Position         string                  `json:"position"`
-	NewsUpdated      int64                   `json:"news_updated"`
-	Metadata         *map[string]interface{} `json:"metadata"`
-	LastName         string                  `json:"last_name"`
-	InjuryStatus     *string                 `json:"injury_status"`
-	InjuryStartDate  *interface{}            `json:"injury_start_date"`
-	InjuryNotes      *interface{}            `json:"injury_notes"`
-	InjuryBodyPart   *string                 `json:"injury_body_part"`
-	FirstName        string                  `json:"first_name"`
-	FantasyPositions []string                `json:"fantasy_positions"`
+	YearsExp         int             `json:"years_exp"`
+	Team             string          `json:"team"`
+	Position         string          `json:"position"`
+	NewsUpdated      int64           `json:"news_updated"`
+	Metadata         *map[string]any `json:"metadata"`
+	LastName         string          `json:"last_name"`
+	InjuryStatus     *string         `json:"injury_status"`
+	InjuryStartDate  *any            `json:"injury_start_date"`
+	InjuryNotes      *any            `json:"injury_notes"`
+	InjuryBodyPart   *string         `json:"injury_body_part"`
+	FirstName        string          `json:"first_name"`
+	FantasyPositions []string        `json:"fantasy_positions"`
 }
 
 // UnstablePlayerStats is an unstable struct for player stats and projections

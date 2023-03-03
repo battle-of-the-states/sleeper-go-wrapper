@@ -21,16 +21,16 @@ type Roster struct {
 		Fpts               int `json:"fpts"`
 		Division           int `json:"division,omitempty"`
 	} `json:"settings"`
-	RosterID  int         `json:"roster_id"`
-	Reserve   []string    `json:"reserve"`
-	Players   []string    `json:"players"`
-	PlayerMap interface{} `json:"player_map"`
-	OwnerID   string      `json:"owner_id"`
-	LeagueID  string      `json:"league_id"`
-	CoOwners  interface{} `json:"co_owners"`
+	RosterID  int      `json:"roster_id"`
+	Reserve   []string `json:"reserve"`
+	Players   []string `json:"players"`
+	PlayerMap any      `json:"player_map"`
+	OwnerID   string   `json:"owner_id"`
+	LeagueID  string   `json:"league_id"`
+	CoOwners  any      `json:"co_owners"`
 	// known keys:
 	// streak, record, p_nick_<player ID>, allow_pn_scoring, allow_pn_news
-	Metadata interface{} `json:"metadata"`
+	Metadata any `json:"metadata"`
 }
 
 /*
