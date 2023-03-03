@@ -14,7 +14,7 @@ type Client struct {
 
 	sleeperCDN string
 
-	NFLPlayers AllPlayersJSON
+	NFLPlayers AllPlayers
 }
 
 // NewClient creates a new Sleeper Client.
