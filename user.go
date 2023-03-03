@@ -10,11 +10,8 @@ type UserSimpleJSON struct {
 	Email       string  `json:"email,omitempty"`
 }
 
-// UsersJSON is the return type for all users in a league
-type UsersJSON []UserJSON
-
-// UserJSON is a single user from the league users API.
-type UserJSON struct {
+// User is a single user from the league users API.
+type User struct {
 	UserID   string      `json:"user_id"`
 	Settings interface{} `json:"settings"`
 	Metadata struct {
@@ -100,10 +97,24 @@ func (c *Client) GetUser(usernameOrID string) (UserSimpleJSON, error) {
 	return *user, nil
 }
 
+/*
+	User methods
+*/
+
 // GetUserDisplayName will return the display name or username if the user's display name is empty
 func (u UserSimpleJSON) GetUserDisplayName() string {
 	if u.DisplayName != "" {
 		return u.DisplayName
 	}
 	return u.Username
+}
+
+// GetUserAvatar will return the url for the user's full avatar
+func (u UserSimpleJSON) GetUserAvatar() string {
+	return fmt.Sprintf("%s/%s", SLEEPER_AVATAR_URL, u.Avatar)
+}
+
+// GetUserAvatarThumbnail will return the url for the user's thumbnail avatar
+func (u UserSimpleJSON) GetUserAvatarThumbnail() string {
+	return fmt.Sprintf("%s/%s", SLEEPER_AVATAR_THUMBNAIL_URL, u.Avatar)
 }

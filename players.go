@@ -6,11 +6,11 @@ import (
 	"strconv"
 )
 
-// AllPlayersJSON is the return type for the all players endpoint.
-type AllPlayersJSON map[string]PlayerInfoJSON
+// AllPlayers is the return type for the all players endpoint.
+type AllPlayers map[string]PlayerInfo
 
-// PlayerInfoJSON is information about a single player in the all players endpoint.
-type PlayerInfoJSON struct {
+// PlayerInfo is information about a single player in the all players endpoint.
+type PlayerInfo struct {
 	InjuryStatus          interface{} `json:"injury_status"`
 	SportradarID          string      `json:"sportradar_id"`
 	Number                int         `json:"number"`
@@ -117,17 +117,17 @@ Since rosters and draft picks contain Player IDs which look like "1042",
 /players call provides you the map necessary to look up any player.
 
 You should save this information on your own servers as this is not intended
-to be called every time you need to look up players due to the filesize being
+to be called every time you need to look up players due to the file size being
 close to 5MB in size. You do not need to call this endpoint more than once
 per day.
 
 sport (required) : The sport to get all players for
 */
-func (c *Client) GetAllPlayers(sport Sport) (AllPlayersJSON, error) {
+func (c *Client) GetAllPlayers(sport Sport) (AllPlayers, error) {
 	// https://api.sleeper.app/v1/players/nfl
 	reqURL := fmt.Sprintf("%s/players/%s", c.sleeperURL, sport)
 
-	players := new(AllPlayersJSON)
+	players := new(AllPlayers)
 
 	err := c.get(reqURL, players)
 
@@ -161,8 +161,6 @@ func (c *Client) GetTrendingPlayers(sport Sport, addOrDrop TrendingType, opts ..
 	if query := values.Encode(); query != "" {
 		reqURL += "?" + query
 	}
-
-	fmt.Println(reqURL)
 
 	players := new(TrendingPlayersJSON)
 
