@@ -37,6 +37,8 @@ const (
 	NBA Sport = "nba"
 	// LCS is the lcs sport tag
 	LCS Sport = "lcs"
+	// MLB is the mlb sport tag
+	MLB Sport = "mlb"
 
 	// WinnersBracket is the winners bracket
 	WinnersBracket Bracket = "winners_bracket"
