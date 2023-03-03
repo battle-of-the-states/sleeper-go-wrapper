@@ -5,7 +5,7 @@ import (
 )
 
 func TestGetUser(t *testing.T) {
-	client, err = NewClient(&hClient)
+	client, err := NewClient(&hClient)
 
 	if err != nil {
 		t.Error(err)
@@ -25,6 +25,9 @@ func TestGetUser(t *testing.T) {
 		{*res.UserID, "446778421305929728"},
 		{res.DisplayName, "KyleWithAnR"},
 		{res.GetUserDisplayName(), "KyleWithAnR"},
+		{res.Avatar, "97346f881551ca347944a3087af619fd"},
+		{res.GetUserAvatar(), "https://sleepercdn.com/avatars/97346f881551ca347944a3087af619fd"},
+		{res.GetUserAvatarThumbnail(), "https://sleepercdn.com/avatars/thumbs/97346f881551ca347944a3087af619fd"},
 	}
 
 	for _, test := range tests {
